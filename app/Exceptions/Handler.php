@@ -9,6 +9,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Auth\AuthenticationException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -56,27 +57,31 @@ class Handler extends ExceptionHandler
     {
         if($exception instanceof ValidationException){
             return $this->convertValidationExceptionToResponse($exception, $request);
-        }
+        } 
 
         if($exception instanceof ModelNotFoundException){
             $modelName=class_basename($exception->getModel());
             return $this->errorResponse("{$modelName} not found with the specified ID", 404);
-        }
+        } 
 
         if($exception instanceof AuthenticationException){
             return $this->unauthenticated($request, $exception);
-        }
+        } 
 
         if($exception instanceof AuthorizationException){
             return $this->errorResponse($exception->getMessage(), 403);
-        }
+        } 
 
         if($exception instanceof NotFoundHttpException) {
             return $this->errorResponse("The specified URL cannot be found", 404);
-        }
+        } 
 
         if($exception instanceof MethodNotAllowedHttpException){
             return $this->errorResponse("The specified method for the request is invalid", 405);
+        } 
+
+        if($exception instanceof HttpException){
+            return $this->errorResponse($exception->getMessage(), $exception->getStatusCode());
         }
 
         return parent::render($request, $exception);
