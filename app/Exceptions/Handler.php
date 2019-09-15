@@ -14,6 +14,8 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+use function Psy\debug;
+
 class Handler extends ExceptionHandler
 {
     use ApiResponser;
@@ -91,12 +93,15 @@ class Handler extends ExceptionHandler
             if($errorCode == 1451){
                 return $this->errorResponse("Cannot remove this resource permanently. It is related " .
                 "to another resource", 409);
-            } else {
-                return $this->errorResponse("There was an error with your query", 409);
-            }
+            } 
         }
 
-        return parent::render($request, $exception);
+        // For details of the exception make true the APP_DEBUG value on the .env file
+        if(config('app.debug')){
+            return parent::render($request, $exception);
+        }
+
+        return $this->errorResponse("Unexpected error. Please, try again later", 500);
     }
 
     /**
