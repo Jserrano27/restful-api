@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Auth\AuthenticationException;
 
 class Handler extends ExceptionHandler
 {
@@ -59,6 +60,10 @@ class Handler extends ExceptionHandler
             return $this->errorResponse("{$modelName} not found with the specified ID", 404);
         }
 
+        if($exception instanceof AuthenticationException){
+            $this->unauthenticated($request, $exception);
+        }
+
         return parent::render($request, $exception);
     }
 
@@ -76,4 +81,15 @@ class Handler extends ExceptionHandler
         return $this->errorResponse($errors, 422);
     }
 
+        /**
+     * Convert an authentication exception into a response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Auth\AuthenticationException  $exception
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        return $this->errorResponse('Anauthenticated', 401);
+    }
 }
