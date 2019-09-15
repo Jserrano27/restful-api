@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use App\Traits\ApiResponser;
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -52,7 +53,7 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if($exception instanceof ValidationException){
-            $this->convertValidationExceptionToResponse($exception, $request);
+            return $this->convertValidationExceptionToResponse($exception, $request);
         }
 
         if($exception instanceof ModelNotFoundException){
@@ -61,7 +62,11 @@ class Handler extends ExceptionHandler
         }
 
         if($exception instanceof AuthenticationException){
-            $this->unauthenticated($request, $exception);
+            return $this->unauthenticated($request, $exception);
+        }
+
+        if($exception instanceof AuthorizationException){
+            return $this->errorResponse($exception->getMessage(), 403);
         }
 
         return parent::render($request, $exception);
