@@ -107,7 +107,7 @@ class UserController extends ApiController
             $user->admin = $request->admin;
         }
 
-        if (!$user->isDirty())
+        if ($user->isClean())
         {
            return $this->errorResponse('You cant update that field or none field selected', 422);
         }
@@ -127,6 +127,6 @@ class UserController extends ApiController
     {
         $user->delete();
         
-        return response()->json(['data' => $user], 200);
+        return $this->showOne($user);
     }
 }

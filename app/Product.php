@@ -6,13 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 use App\Category;
 use App\Transaction;
 use App\Seller;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
+    use SoftDeletes;
+
     //Constantes para el atributo "status" del producto
     const AVAILABLE_PRODUCT = 'available';
     const UNAVAILABLE_PRODUCT = 'unavailable';
 
+    protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'name',
