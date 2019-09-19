@@ -27,6 +27,10 @@ class Product extends Model
         'seller_id',
     ];
 
+    protected $hidden = [
+        'pivot'
+    ];
+
     //True if available, False if unavailable
     public function isAvailable() 
     {

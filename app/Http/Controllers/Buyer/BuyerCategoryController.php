@@ -15,7 +15,8 @@ class BuyerCategoryController extends ApiController
      */
     public function index(Buyer $buyer)
     {
-        $categories = $buyer->transactions()->with('product.categories')
+        $categories = $buyer->transactions()
+        ->with('product.categories')
         ->get()
         ->pluck('product.categories')
         ->collapse() // Obtain just one list, and not the collections of the categories inside the the collection of the products
