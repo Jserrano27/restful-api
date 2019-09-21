@@ -36,7 +36,7 @@
 | GET|HEAD  | transactions                                   | App\Http\Controllers\Transaction\TransactionController@index         |
 | GET|HEAD  | transactions/{transaction}                     | App\Http\Controllers\Transaction\TransactionController@show          |
 | GET|HEAD  | transactions/{transaction}/categories          | App\Http\Controllers\Transaction\TransactionCategoryController@index |
-| GET|HEAD  | transactions/{transaction}/seller              | App\Http\Controllers\Transaction\TransactionSellerController@index   |
+| GET|HEAD  | transactions/{transaction}/sellers              | App\Http\Controllers\Transaction\TransactionSellerController@index   |
 | GET|HEAD  | users                                          | App\Http\Controllers\User\UserController@index                       |
 | POST      | users                                          | App\Http\Controllers\User\UserController@store                       |
 | GET|HEAD  | users/{user}                                   | App\Http\Controllers\User\UserController@show                        |

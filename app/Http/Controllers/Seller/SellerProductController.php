@@ -44,7 +44,7 @@ class SellerProductController extends ApiController
 
         $data['status'] = Product::UNAVAILABLE_PRODUCT;
         $data['seller_id'] = $seller->id;
-        $data['image'] = '1.jpg';
+        $data['image'] = $request->image->store(''); //default path already defined on config/filesystems
 
         $newProduct = Product::create($data);
 
