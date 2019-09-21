@@ -1,22 +1,45 @@
-        +-----------+----------------------------+--------------------------------------------------------------+
-        | Method    | URI                        | Action                                                       |
-        +-----------+----------------------------+--------------------------------------------------------------+
-        | GET|HEAD  | buyers                     | App\Http\Controllers\Buyer\BuyerController@index             |
-        | GET|HEAD  | buyers/{buyer}             | App\Http\Controllers\Buyer\BuyerController@show              |
-        | GET|HEAD  | categories                 | App\Http\Controllers\Category\CategoryController@index       |
-        | POST      | categories                 | App\Http\Controllers\Category\CategoryController@store       |
-        | GET|HEAD  | categories/{category}      | App\Http\Controllers\Category\CategoryController@show        |
-        | PUT|PATCH | categories/{category}      | App\Http\Controllers\Category\CategoryController@update      |
-        | DELETE    | categories/{category}      | App\Http\Controllers\Category\CategoryController@destroy     |
-        | GET|HEAD  | products                   | App\Http\Controllers\Product\ProductController@index         |
-        | GET|HEAD  | products/{product}         | App\Http\Controllers\Product\ProductController@show          |
-        | GET|HEAD  | sellers                    | App\Http\Controllers\Seller\SellerController@index           |
-        | GET|HEAD  | sellers/{seller}           | App\Http\Controllers\Seller\SellerController@show            |
-        | GET|HEAD  | transactions               | App\Http\Controllers\Transaction\TransactionController@index |
-        | GET|HEAD  | transactions/{transaction} | App\Http\Controllers\Transaction\TransactionController@show  |
-        | GET|HEAD  | users                      | App\Http\Controllers\User\UserController@index               |
-        | POST      | users                      | App\Http\Controllers\User\UserController@store               |
-        | GET|HEAD  | users/{user}               | App\Http\Controllers\User\UserController@show                |
-        | PUT|PATCH | users/{user}               | App\Http\Controllers\User\UserController@update              |
-        | DELETE    | users/{user}               | App\Http\Controllers\User\UserController@destroy             |
-        +-----------+----------------------------+--------------------------------------------------------------+
++-----------+------------------------------------------------+----------------------------------------------------------------------+
+| Method    | URI                                            | Action                                                               |
++-----------+------------------------------------------------+----------------------------------------------------------------------+
+| GET|HEAD  | buyers                                         | App\Http\Controllers\Buyer\BuyerController@index                     |
+| GET|HEAD  | buyers/{buyer}                                 | App\Http\Controllers\Buyer\BuyerController@show                      |
+| GET|HEAD  | buyers/{buyer}/categories                      | App\Http\Controllers\Buyer\BuyerCategoryController@index             |
+| GET|HEAD  | buyers/{buyer}/products                        | App\Http\Controllers\Buyer\BuyerProductController@index              |
+| GET|HEAD  | buyers/{buyer}/sellers                         | App\Http\Controllers\Buyer\BuyerSellerController@index               |
+| GET|HEAD  | buyers/{buyer}/transactions                    | App\Http\Controllers\Buyer\BuyerTransactionController@index          |
+| GET|HEAD  | categories                                     | App\Http\Controllers\Category\CategoryController@index               |
+| POST      | categories                                     | App\Http\Controllers\Category\CategoryController@store               |
+| DELETE    | categories/{category}                          | App\Http\Controllers\Category\CategoryController@destroy             |
+| PUT|PATCH | categories/{category}                          | App\Http\Controllers\Category\CategoryController@update              |
+| GET|HEAD  | categories/{category}                          | App\Http\Controllers\Category\CategoryController@show                |
+| GET|HEAD  | categories/{category}/buyers                   | App\Http\Controllers\Category\CategoryBuyerController@index          |
+| GET|HEAD  | categories/{category}/products                 | App\Http\Controllers\Category\CategoryProductController@index        |
+| GET|HEAD  | categories/{category}/sellers                  | App\Http\Controllers\Category\CategorySellerController@index         |
+| GET|HEAD  | categories/{category}/transactions             | App\Http\Controllers\Category\CategoryTransactionController@index    |
+| GET|HEAD  | products                                       | App\Http\Controllers\Product\ProductController@index                 |
+| GET|HEAD  | products/{product}                             | App\Http\Controllers\Product\ProductController@show                  |
+| GET|HEAD  | products/{product}/buyers                      | App\Http\Controllers\Product\ProductBuyerController@index            |
+| POST      | products/{product}/buyers/{buyer}/transactions | App\Http\Controllers\Product\ProductBuyerTransactionController@store |
+| GET|HEAD  | products/{product}/categories                  | App\Http\Controllers\Product\ProductCategoryController@index         |
+| PUT|PATCH | products/{product}/categories/{category}       | App\Http\Controllers\Product\ProductCategoryController@update        |
+| DELETE    | products/{product}/categories/{category}       | App\Http\Controllers\Product\ProductCategoryController@destroy       |
+| GET|HEAD  | products/{product}/transactions                | App\Http\Controllers\Product\ProductTransactionController@index      |
+| GET|HEAD  | sellers                                        | App\Http\Controllers\Seller\SellerController@index                   |
+| GET|HEAD  | sellers/{seller}                               | App\Http\Controllers\Seller\SellerController@show                    |
+| GET|HEAD  | sellers/{seller}/buyers                        | App\Http\Controllers\Seller\SellerBuyerController@index              |
+| GET|HEAD  | sellers/{seller}/categories                    | App\Http\Controllers\Seller\SellerCategoryController@index           |
+| GET|HEAD  | sellers/{seller}/products                      | App\Http\Controllers\Seller\SellerProductController@index            |
+| POST      | sellers/{seller}/products                      | App\Http\Controllers\Seller\SellerProductController@store            |
+| DELETE    | sellers/{seller}/products/{product}            | App\Http\Controllers\Seller\SellerProductController@destroy          |
+| PUT|PATCH | sellers/{seller}/products/{product}            | App\Http\Controllers\Seller\SellerProductController@update           |
+| GET|HEAD  | sellers/{seller}/transactions                  | App\Http\Controllers\Seller\SellerTransactionController@index        |
+| GET|HEAD  | transactions                                   | App\Http\Controllers\Transaction\TransactionController@index         |
+| GET|HEAD  | transactions/{transaction}                     | App\Http\Controllers\Transaction\TransactionController@show          |
+| GET|HEAD  | transactions/{transaction}/categories          | App\Http\Controllers\Transaction\TransactionCategoryController@index |
+| GET|HEAD  | transactions/{transaction}/seller              | App\Http\Controllers\Transaction\TransactionSellerController@index   |
+| GET|HEAD  | users                                          | App\Http\Controllers\User\UserController@index                       |
+| POST      | users                                          | App\Http\Controllers\User\UserController@store                       |
+| GET|HEAD  | users/{user}                                   | App\Http\Controllers\User\UserController@show                        |
+| PUT|PATCH | users/{user}                                   | App\Http\Controllers\User\UserController@update                      |
+| DELETE    | users/{user}                                   | App\Http\Controllers\User\UserController@destroy                     |
++-----------+------------------------------------------------+----------------------------------------------------------------------+
