@@ -45,7 +45,9 @@ class ProductBuyerTransactionController extends ApiController
             return $this->errorResponse("The quantity specified is less than the quantity available", 409);
         }
 
-        // Funcion anonima modifica base de datos
+        // DB::transaction() run a set of operations within a database transaction. 
+        // If an exception is thrown within the transaction Closure, the transaction will automatically
+        // be rolled back
         return DB::transaction(function() use ($product, $request, $buyer) {
             $product->quantity -= $request->quantity;
             $product->save();
