@@ -87,6 +87,13 @@ class SellerProductController extends ApiController
             $product->quantity = $request->quantity;
         }
 
+        if ($request->hasFile('image')) {
+
+            Storage::delete($product->image);
+
+            $product->image = $request->image->store('');
+        }
+
         if ($request->has('status')) {
 
             $product->status = $request->status;
