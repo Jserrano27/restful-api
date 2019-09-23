@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Mail\UserCreated;
 use App\Product;
+use App\User;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,6 +28,11 @@ class AppServiceProvider extends ServiceProvider
                 $product->save();
             }
         }); 
+
+        // Event listener to email welcome email for new users
+       User::created(function(User $user) {
+           Mail::to($user->email)->send(new UserCreated($user));
+       });
     }
        
     /**
