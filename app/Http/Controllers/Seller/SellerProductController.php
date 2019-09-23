@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
 use App\Product;
 use App\User;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class SellerProductController extends ApiController
@@ -116,6 +117,10 @@ class SellerProductController extends ApiController
     public function destroy(Seller $seller, Product $product)
     {
         $this->checkSeller($seller, $product);
+
+        // Storage its a Laravel Facade for managing stored files
+        // Delete de image, path already defined in config/filesystems.php 
+        Storage::delete($product->image);
 
         $product->delete();
 
