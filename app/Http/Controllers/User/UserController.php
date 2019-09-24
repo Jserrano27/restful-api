@@ -76,7 +76,7 @@ class UserController extends ApiController
     {
         $rules = [
             //unico en user excepto para el valor de la columna email para el id del usuario
-            'email' => 'email|unique:users,email,' . $user->id, 
+            'email' => 'email|unique:users,email,' . $user->id , 
             'password' => 'min:6|confirmed',
             //el valor debe ser una de las dos opciones dadas en el "in"
             'admin' => 'in:' . User::ADMIN_USER . ',' . User::REGULAR_USER, 
@@ -111,7 +111,7 @@ class UserController extends ApiController
 
         if ($user->isClean())
         {
-           return $this->errorResponse('You cant update that field or none field selected', 422);
+           return $this->errorResponse('You cannot update that field or none field selected', 422);
         }
 
         $user->save();
@@ -149,7 +149,10 @@ class UserController extends ApiController
         if($user->isVerified()) {
             return $this->errorResponse("Your email has been already verified", 409);
         }
-        Mail::to($user->email)->send(new UserCreated($user));
+        
+        retry(5, function() use ($user) {
+            Mail::to($user->email)->send(new UserCreated($user));
+            }, 1000);
 
         return $this->showMessage("The verification email was sent to {$user->email}");
     }

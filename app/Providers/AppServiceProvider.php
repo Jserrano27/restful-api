@@ -32,13 +32,18 @@ class AppServiceProvider extends ServiceProvider
 
         // Event listener to email welcome email for new users
        User::created(function(User $user) {
-           Mail::to($user->email)->send(new UserCreated($user));
+           //if fails, retry 5 times the sending every 1 second
+           retry(5, function() use ($user) {
+               Mail::to($user->email)->send(new UserCreated($user));
+            }, 1000);
        });
        
         // Event listener to email verification for new email on updated users
         User::updated(function(User $user) {
             if($user->isDirty('email')){
-                Mail::to($user->email)->send(new UserMailChanged($user));
+                retry(5, function() use ($user) {
+                    Mail::to($user->email)->send(new UserMailChanged($user));
+                }, 1000);
             }
         });
     }
