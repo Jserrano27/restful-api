@@ -80,7 +80,7 @@ class User extends Authenticatable
     //Generate verification token
     public static function generateVerificationCode()
     {
-        return str_random(40);
+        return str_random(70);
     }
 
 

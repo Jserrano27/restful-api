@@ -8,11 +8,10 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class UserCreated extends Mailable
+class UserMailChanged extends Mailable
 {
     use Queueable, SerializesModels;
 
-    // public attributes are injected automatically inside to the views
     public $user;
 
     /**
@@ -32,6 +31,6 @@ class UserCreated extends Mailable
      */
     public function build()
     {
-        return $this->text('emails.welcome')->subject("Welcome to the RESTful API");
+        return $this->text('emails.emailchange')->subject("The email address of your account has been updated");
     }
 }

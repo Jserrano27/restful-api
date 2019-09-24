@@ -27,6 +27,13 @@ class DatabaseSeeder extends Seeder
         Transaction::truncate();
         DB::table('category_product')->truncate();
 
+        //Deshabilitamos los event listeners para cuando corramos el seeder
+        User::flushEventListeners();
+        Product::flushEventListeners();
+        Transaction::flushEventListeners();
+        Category::flushEventListeners();
+        
+
         //establecemos las cantidades de cada entidad
         $usersQuantity = 1000;
         $categoriesQuantity = 30;
@@ -44,6 +51,7 @@ class DatabaseSeeder extends Seeder
                 $product->categories()->attach($categories);
             }
         );
+
         factory(Transaction::class, $transactionsQuantity)->create();
 
 

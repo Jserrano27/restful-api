@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Mail\UserCreated;
+use App\Mail\UserMailChanged;
 use App\Product;
 use App\User;
 use Illuminate\Support\Facades\Mail;
@@ -33,6 +34,13 @@ class AppServiceProvider extends ServiceProvider
        User::created(function(User $user) {
            Mail::to($user->email)->send(new UserCreated($user));
        });
+       
+        // Event listener to email verification for new email on updated users
+        User::updated(function(User $user) {
+            if($user->isDirty('email')){
+                Mail::to($user->email)->send(new UserMailChanged($user));
+            }
+        });
     }
        
     /**
