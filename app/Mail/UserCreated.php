@@ -32,6 +32,6 @@ class UserCreated extends Mailable
      */
     public function build()
     {
-        return $this->text('emails.welcome')->subject("Welcome to the RESTful API");
+        return $this->markdown('emails.welcome')->subject("Welcome to the RESTful API");
     }
 }
