@@ -11,13 +11,14 @@ class User extends Authenticatable
 {
     use Notifiable, SoftDeletes;
 
-    protected $dates = ['deleted_at'];
 
     const VERIFIED_USER = '1';
     const UNVERIFIED_USER = '0';
 
     const ADMIN_USER = 'true';
     const REGULAR_USER = 'false';
+
+    protected $dates = ['deleted_at'];
 
     //Seller y Buyer heredan esta definicion, de modo que laravel sabe que no hay tabla propia para ellos dos
     protected $table = 'users';
