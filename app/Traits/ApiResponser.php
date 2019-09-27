@@ -19,12 +19,16 @@ trait ApiResponser {
 
     protected function showAll(Collection $collection, $code = 200)
     {
+        //$collection = $this->transformData($collection, new $collection->transformer);
+
         return $this->successResponse(['data' => $collection], $code);
     }
 
-    protected function showOne(Model $model, $code = 200)
+    protected function showOne(Model $instance, $code = 200)
     {
-        return $this->successResponse(['data' => $model], $code);
+        $instance = $this->transformData($instance, $instance->transformer);
+
+        return $this->successResponse($instance, $code);
     }
 
     protected function showMessage($message, $code = 200)
@@ -32,7 +36,12 @@ trait ApiResponser {
         return $this->successResponse(['data' => $message], $code);
     }
 
+    protected function transformData($data, $transformer)
+    {
+        $transformation = fractal($data, new $transformer);
 
+        return $transformation->toArray();
+    }
 
 
 
