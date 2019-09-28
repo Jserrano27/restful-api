@@ -18,10 +18,10 @@ class BuyerTransformer extends TransformerAbstract
             'identifier' => (string)$buyer->id,
             'name' => (string)$buyer->name,
             'email' => (string)$buyer->email,
-            'isVerified' => (int)$buyer->verified,
-            'creationDate' => (string)$buyer->created_at,
-            'lastChange' => (string)$buyer->updated_at,
-            'deletedDate' => (isset($buyer->deleted_at) ? (string)$buyer->deleted_at : null)
+            'is_Verified' => (int)$buyer->verified,
+            'creation_Date' => (string)$buyer->created_at,
+            'last_Change' => (string)$buyer->updated_at,
+            'deleted_Date' => (isset($buyer->deleted_at) ? (string)$buyer->deleted_at : null)
         ];
     }
 }

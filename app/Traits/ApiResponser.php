@@ -19,9 +19,9 @@ trait ApiResponser {
 
     protected function showAll(Collection $collection, $code = 200)
     {
-        //$collection = $this->transformData($collection, new $collection->transformer);
+        $collection = $this->transformData($collection, $collection->first()->transformer);
 
-        return $this->successResponse(['data' => $collection], $code);
+        return $this->successResponse($collection, $code);
     }
 
     protected function showOne(Model $instance, $code = 200)
