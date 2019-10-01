@@ -3,7 +3,10 @@
 namespace App\Traits;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+
+use function GuzzleHttp\Promise\all;
 
 trait ApiResponser {
 
@@ -24,6 +27,8 @@ trait ApiResponser {
         $collection = $this->filterData($collection, $transformer);
 
         $collection = $this->sortData($collection, $transformer);
+
+        $collection = $this->paginate($collection);
 
         $collection = $this->transformData($collection, $transformer);
 
@@ -64,6 +69,23 @@ trait ApiResponser {
         }
 
         return $collection;
+    }
+
+    protected function paginate(Collection $collection)
+    {
+        $total = $collection->count();
+        $perPage = 15;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $items = $collection->slice(($currentPage - 1) * $perPage, $perPage)->values();
+
+        $paginated = new LengthAwarePaginator($items, $total, $perPage, $currentPage, [
+            'path' => LengthAwarePaginator::resolveCurrentPath(),
+        ]);
+
+        //Add the query string values to the paginator links - compatibilty with sort_by and filters
+        $paginated->appends(request()->all());
+
+        return $paginated;        
     }
 
     protected function transformData($data, $transformer)
