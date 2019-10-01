@@ -5,6 +5,7 @@ namespace App\Traits;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Validator;
 
 use function GuzzleHttp\Promise\all;
 
@@ -73,8 +74,18 @@ trait ApiResponser {
 
     protected function paginate(Collection $collection)
     {
-        $total = $collection->count();
+        $rules = [
+            'per_page' => 'integer|min:2|max:50',
+        ];
+
+        Validator::validate(request()->all(), $rules);
+
         $perPage = 15;
+        if(request()->has('per_page')) {
+            $perPage = request()->per_page;
+        }
+
+        $total = $collection->count();
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $items = $collection->slice(($currentPage - 1) * $perPage, $perPage)->values();
 
