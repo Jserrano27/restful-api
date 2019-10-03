@@ -15,7 +15,7 @@ class ProductTransformer extends TransformerAbstract
     public function transform(Product $product)
     {
         return [
-            'identifier' => (int)$product->id,
+            'product_identifier' => (int)$product->id,
             'title' => (string)$product->name,
             'details' => (string)$product->description,
             'stock' => (int)$product->quantity,

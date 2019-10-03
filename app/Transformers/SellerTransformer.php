@@ -15,7 +15,7 @@ class SellerTransformer extends TransformerAbstract
     public function transform(Seller $seller)
     {
         return [
-            'identifier' => (string)$seller->id,
+            'seller_identifier' => (string)$seller->id,
             'name' => (string)$seller->name,
             'email' => (string)$seller->email,
             'is_Verified' => (int)$seller->verified,
