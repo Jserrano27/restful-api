@@ -22,7 +22,15 @@ class UserTransformer extends TransformerAbstract
             'is_Admin' => ($user->admin === "true"),
             'creation_Date' => (string)$user->created_at,
             'last_Change' => (string)$user->updated_at,
-            'deleted_Date' => (isset($user->deleted_at) ? (string)$user->deleted_at : null)
+            'deleted_Date' => (isset($user->deleted_at) ? (string)$user->deleted_at : null),
+
+            'links' =>[
+                [
+                    'href' => route('users.show', $user->id),
+                    'rel' => 'self',
+                    'type' => 'GET'
+                ],
+            ],            
         ];
     }
 
@@ -36,7 +44,7 @@ class UserTransformer extends TransformerAbstract
             'is_Admin' => 'admin',
             'creation_Date' => 'created_at',
             'last_Change' => 'updated_at',
-            'deleted_Date' => 'deleted_at'
+            'deleted_Date' => 'deleted_at',
         ];
 
         return isset($array[$index]) ? $array[$index] : null;
