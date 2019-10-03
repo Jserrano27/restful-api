@@ -26,27 +26,27 @@ class CategoryTransformer extends TransformerAbstract
                 [
                     'href' => route('categories.show', $category->id),
                     'rel' => 'self',
-                    'type' => 'GET',
+                    'type' => 'GET'
                 ],
                 [
                     'href' => route('categories.buyers.index', $category->id),
                     'rel' => 'categories.buyers',
-                    'type' => 'GET',
+                    'type' => 'GET'
                 ],
                 [
                     'href' => route('categories.products.index', $category->id),
                     'rel' => 'categories.products',
-                    'type' => 'GET',
+                    'type' => 'GET'
                 ],
                 [
                     'href' => route('categories.sellers.index', $category->id),
                     'rel' => 'categories.sellers',
-                    'type' => 'GET',
+                    'type' => 'GET'
                 ],
                 [
                     'href' => route('categories.transactions.index', $category->id),
                     'rel' => 'categories.transactions',
-                    'type' => 'GET',
+                    'type' => 'GET'
                 ],
             ],
         ];
