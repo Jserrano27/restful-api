@@ -72,4 +72,19 @@ class SellerTransformer extends TransformerAbstract
 
         return isset($array[$index]) ? $array[$index] : null;
     }
+
+    public static function transformedAttribute($index)
+    {
+        $array = [
+            'id' => 'identifier',
+            'name' => 'name',
+            'email' => 'email',
+            'verified' => 'is_Verified',
+            'created_at' => 'creation_Date',
+            'updated_at' => 'last_Change',
+            'deleted_at' => 'deleted_Date'
+        ];
+
+        return isset($array[$index]) ? $array[$index] : null;
+    }
 }

@@ -34,7 +34,7 @@ trait ApiResponser {
 
         $collection = $this->transformData($collection, $transformer);
 
-        $collection = $this->cacheData($collection);
+        //$collection = $this->cacheData($collection);
 
         return $this->successResponse($collection, $code);
     }

@@ -15,7 +15,7 @@ class UserController extends ApiController
     {
         parent::__construct();
 
-        $this->middleware('transform.input:' . UserTransformer::class)->only(['store', 'update']);
+        $this->middleware('transform.input:' . UserTransformer::class)->only(['update']);
     }
 
     /**
