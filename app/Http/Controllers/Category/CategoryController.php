@@ -73,8 +73,8 @@ class CategoryController extends ApiController
             $category->name = $request->name;
         }
 
-        if($request->has('transaction')){
-            $category->transaction = $request->transaction;
+        if($request->has('description')){
+            $category->description = $request->description;
         }
 
         if($category->isClean()){

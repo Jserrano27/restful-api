@@ -16,6 +16,10 @@ class ProductCategoryController extends ApiController
      */
     public function index(Product $product)
     {
+        if($product->categories()->count() == 0){
+            return $this->errorResponse("The product does not belong to any category yet", 404);
+        }
+
         $categories = $product->categories;
 
         return $this->showAll($categories);
