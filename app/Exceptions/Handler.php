@@ -10,6 +10,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\QueryException;
+use Illuminate\Session\TokenMismatchException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -96,6 +97,10 @@ class Handler extends ExceptionHandler
             } 
         }
 
+        if($exception instanceof TokenMismatchException){
+            return redirect()->back()->withInput();
+        }
+
         // For details of the exception make true the APP_DEBUG value on the .env file
         if(config('app.debug')){
             return parent::render($request, $exception);
@@ -115,6 +120,11 @@ class Handler extends ExceptionHandler
     {
         $errors = $e->validator->errors()->getMessages();
 
+        if($this->isFrontEnd($request)){
+
+            return $request->ajax() ? response()->json($errors, 422) : redirect()->back()->withInput()->withErrors($errors);
+        }
+
         return $this->errorResponse($errors, 422);
     }
 
@@ -127,6 +137,15 @@ class Handler extends ExceptionHandler
      */
     protected function unauthenticated($request, AuthenticationException $exception)
     {
+        if($this->isFrontEnd($request)){
+            return redirect()->back()->withInput();
+        }
+
         return $this->errorResponse('Anauthenticated', 401);
+    }
+
+    private function isFrontEnd($request)
+    {
+        return $request->acceptsHtml() && collect($request->route()->middleware())->contains('web');
     }
 }
