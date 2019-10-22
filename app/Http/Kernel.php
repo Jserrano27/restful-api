@@ -38,6 +38,7 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
+            'cors',
             'signature:X-Application-Name',
             'throttle:60,1',
             'bindings',
@@ -63,6 +64,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'signature' => \App\Http\Middleware\SignatureMiddleware::class,
+        'cors' => \Barryvdh\Cors\HandleCors::class,
         'transform.input' => \App\Http\Middleware\TransformInput::class,
     ];
 
