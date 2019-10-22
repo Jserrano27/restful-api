@@ -11,7 +11,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    //test
     use Notifiable, SoftDeletes, HasApiTokens;
 
     const VERIFIED_USER = '1';
